@@ -4,9 +4,10 @@ import getValuesFromState from '../getValuesFromState';
 describe('getValuesFromState', () => {
   it('should get simple values from state', () => {
     const state = {
-      foo: {value: 'bar'},
-      catLives: {value: 9},
-      alive: {value: true}
+      foo: {value: 'bar', touched: true},
+      catLives: {value: 9, touched: true},
+      alive: {value: true, touched: true},
+      notSet: {value: undefined, touched: true}
     };
     expect(getValuesFromState(state))
       .toBeA('object')

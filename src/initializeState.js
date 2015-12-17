@@ -2,7 +2,7 @@ const updateEntry = (entry, value) => {
   if (entry && entry.value !== undefined) {
     return {initial: value, value: entry.value};
   }
-  return value === undefined ? {} : {initial: value, value};
+  return {initial: value, value};
 };
 
 /**

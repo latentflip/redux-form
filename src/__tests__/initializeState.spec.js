@@ -11,7 +11,7 @@ describe('initializeState', () => {
   });
 
   it('should return empty field entries for each field', () => {
-    expect(initializeState({}, ['foo', 'bar'], {})).toEqual({foo: {}, bar: {}});
+    expect(initializeState({}, ['foo', 'bar'], {})).toEqual({foo: {value: undefined, initial: undefined}, bar: {value: undefined, initial: undefined}});
   });
 
   it('should initialize simple field values to state', () => {
@@ -84,7 +84,10 @@ describe('initializeState', () => {
             initial: 'baz',
             value: 'baz'
           },
-          {}
+          {
+            initial: undefined,
+            value: undefined,
+          }
         ],
         alive: {
           initial: true,
