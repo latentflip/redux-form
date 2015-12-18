@@ -18,12 +18,31 @@ export const initialState = {
   _submitFailed: false
 };
 
+const getKeys = (values, prefix = '', accumulator = []) => {
+  if (!values) return null;
+
+  const isArr = Array.isArray(values);
+
+  return Object.keys(values).reduce((memo, key) => {
+    const value = values[key];
+    const stringKey = isArr ? `[${key}]` : key;
+    const nestedKey = prefix ? `${prefix}.${stringKey}` : stringKey;
+
+    if (value !== null && typeof value === 'object') {
+      return getKeys(values[key], nestedKey, memo);
+    }
+
+    memo.push(nestedKey);
+    return memo;
+  }, accumulator);
+};
+
 const behaviors = {
   [ADD_ARRAY_VALUE](state, {path, index, value}) {
     const array = read(path, state);
     const stateCopy = {...state};
     const arrayCopy = array ? [...array] : [];
-    const newValue = value !== null && typeof value === 'object' ? initializeState(value, Object.keys(value)) : {value};
+    const newValue = value !== null && typeof value === 'object' ? initializeState(value, getKeys(value)) : {value};
     if (index === undefined) {
       arrayCopy.push(newValue);
     } else {
